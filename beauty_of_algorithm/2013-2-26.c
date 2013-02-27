@@ -24,11 +24,11 @@ int findN(int arr[], int n, int len)
         return -1;
 
     res = 0;
-    for (i = left; i <= right; i++)
-    {
-        if (arr[i] == n)
-            res++;
-    }
+    for (i = mid - 1; arr[i] == n; i--)
+        res++;
+    for (i = mid; arr[i] == n; i++)
+        res++;
+
     return res;
 }
 
@@ -36,7 +36,7 @@ int main()
 {
     int arr[] = {1,2,2,3,3,3,3,4};
     int len = sizeof(arr) / sizeof(arr[0]);
-    int n = 1;
+    int n = 4;
     int res = findN(arr, n, len);
     printf("The value of %d appear %d times.\n", n, res);
     return 0;
