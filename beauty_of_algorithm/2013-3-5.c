@@ -16,7 +16,7 @@ int find1(int n)
     for (; n > 0; n--)
     {
         i = n;
-        while (i > 0 && (i % 5 == 0))
+        while (i % 5 == 0)
         {
             count++;
             i /= 5;
