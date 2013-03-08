@@ -26,13 +26,45 @@ void maxHeapify(int arr[], int i, int len)
     }
 }
 
+void maxHeapify2(int arr[], int i, int len)
+{
+    // ∑«µ›πÈ µœ÷
+    int child, key;
+    for (key = arr[i]; LEFT(i) <= len; i = child)
+    {
+        child = LEFT(i);
+        if (child < len && arr[child] < arr[child+1])
+            child++;
+        if (key < arr[child])
+            arr[i] = arr[child];
+        else
+            break;
+    }
+    arr[i] = key;
+}
+
 void buildMaxHeap(int arr[], int len)
 {
     int i;
     for (i = len / 2; i >= 1; i--)
     {
-        maxHeapify(arr, i, len);
+        maxHeapify2(arr, i, len);
         //printf("arr[%d] = %d\n", i, arr[i]);
+    }
+}
+
+void maxHeapSort(int arr[], int len)
+{
+    int temp;
+    buildMaxHeap(arr, len);
+    while (len > 0)
+    {
+        printf("%d ", arr[1]);
+        temp = arr[1];
+        arr[1] = arr[len];
+        arr[len] = temp;
+        len--;
+        maxHeapify2(arr, 1, len);
     }
 }
 
@@ -63,22 +95,7 @@ void buildMinHeap(int arr[], int len)
         minHeapify(arr, i, len);
 }
 
-void heapSort(int arr[], int len)
-{
-    int temp;
-    buildMaxHeap(arr, len);
-    while (len > 0)
-    {
-        printf("%d ", arr[1]);
-        temp = arr[1];
-        arr[1] = arr[len];
-        arr[len] = temp;
-        len--;
-        maxHeapify(arr, 1, len);
-    }
-}
-
-void heapSort2(int arr[], int len)
+void minHeapSort(int arr[], int len)
 {
     int temp;
     buildMinHeap(arr, len);
@@ -110,7 +127,7 @@ int main()
     printArray(arr, len);
 
     printf("sort:\n");
-    heapSort2(arr, len);
+    maxHeapSort(arr, len);
     printf("\n");
 
     printf("after sort, array:\n");
